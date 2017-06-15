@@ -25,6 +25,7 @@ public final class Wheel<E> {
     private final ArrayList<Slot<E>> slots;
     private WheelState state = WheelState.RUNNING;
     private final AtomicBoolean shutdown = new AtomicBoolean(false);
+    private static final Object MONITOR = new Object();
 
     private static final int MAX_ALIVE_SECONDS = 60 * 60 * 24;    // 最大存活时间为一天，86400秒
 
@@ -88,7 +89,7 @@ public final class Wheel<E> {
     public void add(E e) {
         if (WheelState.RUNNING != this.state)
             throw new IllegalStateException("timing wheel is shuting down");
-        synchronized (e) {
+        synchronized (MONITOR) {
             removeExsit(e); // 把已有的元素删除掉
 
             Slot<E> slot = getCurrentSlot();
@@ -104,7 +105,7 @@ public final class Wheel<E> {
         if (peroid > slots.size()){
             throw new IllegalStateException("peroid must be less than wheel circle size");
         }
-        synchronized (e) {
+        synchronized (MONITOR) {
             removeExsit(e); // 把已有的元素删除掉
             int targetIndex = currentIndex.get() + peroid;
             if (targetIndex > slots.size()){
