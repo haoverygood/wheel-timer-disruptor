@@ -72,6 +72,7 @@ public class DisruptorSpringProvider implements InitializingBean, DisposableBean
             event.setValue(data);
         } finally {
             ringBuffer.publish(sequence);
+            System.out.println("remainingCapacity --> " + ringBuffer.remainingCapacity());
         }
     }
 }
