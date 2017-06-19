@@ -24,6 +24,7 @@ public class CustomerService {
         return customer;
     }
 
+    //这里注意一点@CachePut只会拦截方法的返回值作为更新的基准
     @CachePut(value = "customer-key", key = "'customer-key#' + #customer.id")
     public Customer updateCustomer(Customer customer) {
         System.out.println("模拟更新customer -->" + customer);
