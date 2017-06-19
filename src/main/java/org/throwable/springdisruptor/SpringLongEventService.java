@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class SpringLongEventService {
 
     public <T> void process(SpringLongEvent<T> springLongEvent) throws Exception {
-        Thread.sleep(1000);
+        Thread.sleep(100);
         System.out.println("SpringLongEventService process.Current event --> " + springLongEvent.getValue());
     }
 }

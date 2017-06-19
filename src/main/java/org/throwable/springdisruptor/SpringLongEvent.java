@@ -6,7 +6,7 @@ package org.throwable.springdisruptor;
  * @description
  * @since 2017/6/15 10:54
  */
-public class SpringLongEvent<T> {
+public class SpringLongEvent<T> implements ClearableEvent{
 
     private T value;
 
